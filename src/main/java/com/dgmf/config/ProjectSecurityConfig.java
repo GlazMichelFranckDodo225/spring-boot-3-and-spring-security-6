@@ -13,22 +13,25 @@ public class ProjectSecurityConfig {
         /**
          *  Below is the custom security configurations
          */
-        http.authorizeHttpRequests(
+        /*http.authorizeHttpRequests(
                 (requests) -> requests
                         .requestMatchers("/myAccount","/myBalance","/myLoans","/myCards").authenticated()
                         .requestMatchers("/notices","/contact").permitAll())
                 .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults());
 
-        return http.build();
+        return http.build();*/
 
         /**
          *  Configuration to deny all the requests
          */
-        /*http.authorizeHttpRequests(requests -> requests.anyRequest().denyAll())
+        http.authorizeHttpRequests(
+                requests ->
+                        requests.anyRequest().denyAll())
                 .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults());
-        return http.build();*/
+        
+        return http.build();
 
         /**
          *  Configuration to permit all the requests
