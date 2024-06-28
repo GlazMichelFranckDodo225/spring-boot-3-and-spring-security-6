@@ -6,6 +6,8 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -46,7 +48,7 @@ public class ProjectSecurityConfig {
         by a UserDetailsService. Developers may use this class directly, subclass it, or write their
         own UserDetails implementation from scratch.
         */
-        UserDetails admin = User.withDefaultPasswordEncoder()
+        /*UserDetails admin = User.withDefaultPasswordEncoder()
                 .username("admin")
                 .password("admin")
                 .authorities("admin")
@@ -58,7 +60,26 @@ public class ProjectSecurityConfig {
                 .authorities("read")
                 .build();
 
+        return new InMemoryUserDetailsManager(admin, user);*/
+
+        // Approach 1 : Using a Bean of Type NoOpPasswordEncoder Class (Implementation
+        // of PasswordEncoder) ==> Storing Password as Plain Text
+        UserDetails admin = User.withUsername("admin")
+                .password("admin")
+                .authorities("admin")
+                .build();
+
+        UserDetails user = User.withUsername("user")
+                .password("user")
+                .authorities("read")
+                .build();
+
         return new InMemoryUserDetailsManager(admin, user);
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return NoOpPasswordEncoder.getInstance();
     }
 
 }
