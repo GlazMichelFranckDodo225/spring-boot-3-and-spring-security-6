@@ -63,7 +63,7 @@ public class ProjectSecurityConfig {
         return new InMemoryUserDetailsManager(admin, user);*/
 
         // Approach 1 : Using a Bean of Type NoOpPasswordEncoder Class (Implementation
-        // of PasswordEncoder) ==> Storing Password as Plain Text
+        // of PasswordEncoder Interface) ==> Storing Password as Plain Text
         UserDetails admin = User.withUsername("admin")
                 .password("admin")
                 .authorities("admin")
