@@ -22,8 +22,9 @@ public class ProjectSecurityConfig {
         // Custom Security Configurations
         http.authorizeHttpRequests(
                     (requests) -> requests
-                        .requestMatchers("/myAccount","/myBalance","/myLoans","/myCards")
-                            .authenticated()
+                        .requestMatchers(
+                                "/myAccount","/myBalance","/myLoans","/myCards"
+                            ).authenticated()
                         .requestMatchers("/notices","/contact")
                             .permitAll()
                 )
@@ -31,11 +32,6 @@ public class ProjectSecurityConfig {
                 .httpBasic(Customizer.withDefaults());
 
         return http.build();
-    }
-
-    @Bean
-    public UserDetailsService userDetailsService(DataSource dataSource) {
-        return new JdbcUserDetailsManager(dataSource);
     }
 
     @Bean
